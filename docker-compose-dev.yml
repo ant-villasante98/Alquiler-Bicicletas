@@ -1,0 +1,29 @@
+version: '3'
+services:
+  estaciones-service:
+    build:
+      context: ./components/EstacionWebApi/
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "5070:5048"
+    volumes:
+      - ./components/EstacionWebApi/:/app
+    networks:
+      - red-dev 
+  bicicletas-db:
+    image: postgres
+    ports:
+      - "5439:5432"
+    volumes:
+      #- ./db/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+      - ./db/data-dev/:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+    networks:
+      - red-dev
+
+    
+networks:
+  red-dev:
+    driver: bridge
+    #external: true

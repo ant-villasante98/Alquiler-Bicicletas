@@ -1,0 +1,13 @@
+version: '3'
+services:
+  bicicletas-db-dev:
+    #build:
+    #  context: . 
+    #  dockerfile: ./Dockerfile.dev
+    image: postgres
+    ports:
+      - "5437:5432"
+    volumes:
+      - ./docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_PASSWORD=password

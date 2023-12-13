@@ -1,0 +1,518 @@
+--
+-- PostgreSQL database cluster dump
+--
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Drop databases (except postgres and template1)
+--
+
+DROP DATABASE IF EXISTS bicicletas;
+
+--
+-- Drop roles
+--
+
+--DROP ROLE postgres;
+
+
+--
+-- Roles
+--
+
+--CREATE ROLE postgres;
+--ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:SyOAw6HO79/DxIhPIMxB3g==$6U/jlPc47AwQFS4t3SQ5IEUYdCHy2DzTWHLMLlg4Gns=:PxWhD1nxKZod+dRI3Sk4ygfsMfK+dKDGc9ubb8pDzso=';
+
+--
+-- User Configurations
+--
+
+
+
+
+
+
+
+
+--
+-- Databases
+--
+
+--
+-- Database "template1" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
+-- Dumped by pg_dump version 16.1 (Debian 16.1-1.pgdg120+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+UPDATE pg_catalog.pg_database SET datistemplate = false WHERE datname = 'template1';
+DROP DATABASE template1;
+--
+-- Name: template1; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE template1 OWNER TO postgres;
+
+\connect template1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: DATABASE template1; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE template1 IS 'default template for new databases';
+
+
+--
+-- Name: template1; Type: DATABASE PROPERTIES; Schema: -; Owner: postgres
+--
+
+ALTER DATABASE template1 IS_TEMPLATE = true;
+
+
+\connect template1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: DATABASE template1; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE CONNECT,TEMPORARY ON DATABASE template1 FROM PUBLIC;
+GRANT CONNECT ON DATABASE template1 TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "bicicletas" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
+-- Dumped by pg_dump version 16.1 (Debian 16.1-1.pgdg120+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: bicicletas; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE bicicletas WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE bicicletas OWNER TO postgres;
+
+\connect bicicletas
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: __EFMigrationsHistory; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL
+);
+
+
+ALTER TABLE public."__EFMigrationsHistory" OWNER TO postgres;
+
+--
+-- Name: alquileres; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.alquileres (
+    "ID" bigint NOT NULL,
+    "ID_CLIENTE" character varying(50),
+    "ESTADO" bigint DEFAULT 1,
+    "ESTACION_RETIRO" bigint,
+    "ESTACION_DEVOLUCION" bigint,
+    "FECHA_HORA_RETIRO" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "FECHA_HORA_DEVOLUCION" timestamp without time zone NOT NULL,
+    "MONTO" double precision,
+    "ID_TARIFA" bigint
+);
+
+
+ALTER TABLE public.alquileres OWNER TO postgres;
+
+--
+-- Name: alquileres_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.alquileres ALTER COLUMN "ID" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."alquileres_ID_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: estaciones; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.estaciones (
+    "ID" integer NOT NULL,
+    "NOMBRE" character varying(100),
+    "FECHA_HORA_CREACION" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "LATITUD" double precision,
+    "LONGITUD" double precision
+);
+
+
+ALTER TABLE public.estaciones OWNER TO postgres;
+
+--
+-- Name: estaciones_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.estaciones ALTER COLUMN "ID" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."estaciones_ID_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: tarifas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tarifas (
+    "ID" bigint NOT NULL,
+    "TIPO_TARIFA" bigint DEFAULT 1,
+    "DEFINICION" character varying(1) DEFAULT 'S'::character varying,
+    "DIA_SEMANA" bigint,
+    "DIA_MES" bigint,
+    "MES" bigint,
+    "ANIO" bigint,
+    "MONTO_FIJO_ALQUILER" double precision,
+    "MONTO_MINUTO_FRACCION" double precision,
+    "MONTO_KM" double precision,
+    "MONTO_HORA" double precision
+);
+
+
+ALTER TABLE public.tarifas OWNER TO postgres;
+
+--
+-- Name: tarifas_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.tarifas ALTER COLUMN "ID" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."tarifas_ID_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Data for Name: __EFMigrationsHistory; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."__EFMigrationsHistory" ("MigrationId", "ProductVersion") FROM stdin;
+20231208184341_InicialCreate	7.0.11
+\.
+
+
+--
+-- Data for Name: alquileres; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.alquileres ("ID", "ID_CLIENTE", "ESTADO", "ESTACION_RETIRO", "ESTACION_DEVOLUCION", "FECHA_HORA_RETIRO", "FECHA_HORA_DEVOLUCION", "MONTO", "ID_TARIFA") FROM stdin;
+\.
+
+
+--
+-- Data for Name: estaciones; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.estaciones ("ID", "NOMBRE", "FECHA_HORA_CREACION", "LATITUD", "LONGITUD") FROM stdin;
+1	UTN	2023-10-03 21:22:30	-31.442961123175007	-64.19409112111947
+2	Comedor	2023-10-03 21:25:12	-31.439612445060444	-64.189333639292
+3	Arquitectura	2023-10-03 21:25:12	-31.437872146162334	-64.19105812298827
+4	Exactas	2023-10-03 21:40:12	-31.43502451876156	-64.193653947581
+5	Jockey	2023-10-03 21:40:12	-31.450717994021375	-64.18122763298067
+6	Las Flores	2023-10-03 21:40:12	-31.450822134890547	-64.20046859625478
+7	Arco	2023-10-03 21:40:12	-31.437432139835902	-64.12813650438935
+8	Parque Sarmiento	2023-10-03 21:40:12	-31.43073667198552	-64.17697332446679
+9	Fuerza Aérea	2023-10-03 21:40:12	-31.43058698978064	-64.21691479834789
+10	Plaza España	2023-10-03 21:40:12	-31.42851620739036	-64.18475904990146
+11	Buen Pastor	2023-10-03 21:40:12	-31.42385497953068	-64.18670883955308
+12	San Martín	2023-10-03 21:40:12	-31.416587739294258	-64.18375675702735
+13	Terminal	2023-10-03 21:40:12	-31.42218194473781	-64.17529908158092
+14	Plaza Colón	2023-10-03 21:40:12	-31.409108235198808	-64.19577990736956
+15	General Paz	2023-10-03 21:40:12	-31.411236180411983	-64.1570540082874
+16	Kempes	2023-10-03 21:40:12	-31.3682945127801	-64.24559910691622
+17	Villa Cabrera	2023-10-03 21:40:12	-31.383393789385238	-64.2133259589045
+18	Gral. Bustos	2023-10-03 21:40:12	-31.389057292916398	-64.17237351083637
+19	Molinos	2023-12-08 17:48:49.348864	-31.837872146162333	-64.12105812298827
+22	Puente Madero	2023-12-08 19:37:01.394903	-31.137872146162334	-64.72105812298827
+\.
+
+
+--
+-- Data for Name: tarifas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tarifas ("ID", "TIPO_TARIFA", "DEFINICION", "DIA_SEMANA", "DIA_MES", "MES", "ANIO", "MONTO_FIJO_ALQUILER", "MONTO_MINUTO_FRACCION", "MONTO_KM", "MONTO_HORA") FROM stdin;
+1	1	S	1	\N	\N	\N	300	6	80	240
+2	1	S	2	\N	\N	\N	300	6	80	240
+3	1	S	3	\N	\N	\N	300	6	80	240
+4	1	S	4	\N	\N	\N	300	6	80	240
+5	1	S	5	\N	\N	\N	320	6.75	90	270
+6	1	S	6	\N	\N	\N	450	9	120	350
+7	1	S	7	\N	\N	\N	450	9	120	350
+8	1	C	\N	13	10	2023	200	4	75	175
+9	2	C	\N	14	10	2023	200	4	75	175
+10	2	C	\N	15	10	2023	200	4	75	175
+11	2	C	\N	16	10	2023	200	4	75	175
+12	2	C	\N	23	10	2023	200	4	75	175
+13	2	C	\N	24	10	2023	200	4	75	175
+14	2	C	\N	25	10	2023	200	4	75	175
+15	2	C	\N	26	10	2023	200	4	75	175
+16	2	C	\N	27	10	2023	200	4	75	175
+17	2	C	\N	2	11	2023	220	4.4	82.5	192.5
+\.
+
+
+--
+-- Name: alquileres_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."alquileres_ID_seq"', 1, false);
+
+
+--
+-- Name: estaciones_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."estaciones_ID_seq"', 22, true);
+
+
+--
+-- Name: tarifas_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."tarifas_ID_seq"', 18, true);
+
+
+--
+-- Name: __EFMigrationsHistory PK___EFMigrationsHistory; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."__EFMigrationsHistory"
+    ADD CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId");
+
+
+--
+-- Name: alquileres alquileres_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.alquileres
+    ADD CONSTRAINT alquileres_pkey PRIMARY KEY ("ID");
+
+
+--
+-- Name: estaciones estaciones_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estaciones
+    ADD CONSTRAINT estaciones_pkey PRIMARY KEY ("ID");
+
+
+--
+-- Name: tarifas tarifas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tarifas
+    ADD CONSTRAINT tarifas_pkey PRIMARY KEY ("ID");
+
+
+--
+-- Name: IX_alquileres_ESTACION_DEVOLUCION; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "IX_alquileres_ESTACION_DEVOLUCION" ON public.alquileres USING btree ("ESTACION_DEVOLUCION");
+
+
+--
+-- Name: IX_alquileres_ESTACION_RETIRO; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "IX_alquileres_ESTACION_RETIRO" ON public.alquileres USING btree ("ESTACION_RETIRO");
+
+
+--
+-- Name: IX_alquileres_ID_TARIFA; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "IX_alquileres_ID_TARIFA" ON public.alquileres USING btree ("ID_TARIFA");
+
+
+--
+-- Name: alquileres fk_alquileres_estaciones_devolucion; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.alquileres
+    ADD CONSTRAINT fk_alquileres_estaciones_devolucion FOREIGN KEY ("ESTACION_DEVOLUCION") REFERENCES public.estaciones("ID");
+
+
+--
+-- Name: alquileres fk_alquileres_estaciones_retiro; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.alquileres
+    ADD CONSTRAINT fk_alquileres_estaciones_retiro FOREIGN KEY ("ESTACION_RETIRO") REFERENCES public.estaciones("ID");
+
+
+--
+-- Name: alquileres fk_alquileres_tarifas; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.alquileres
+    ADD CONSTRAINT fk_alquileres_tarifas FOREIGN KEY ("ID_TARIFA") REFERENCES public.tarifas("ID");
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "postgres" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
+-- Dumped by pg_dump version 16.1 (Debian 16.1-1.pgdg120+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+DROP DATABASE postgres;
+--
+-- Name: postgres; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE postgres WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE postgres OWNER TO postgres;
+
+\connect postgres
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: DATABASE postgres; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- PostgreSQL database cluster dump complete
+--
+
