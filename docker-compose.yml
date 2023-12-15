@@ -5,19 +5,25 @@ services:
       context: ./components/EstacionWebApi
       dockerfile: ./Dockerfile
     ports:
-      - "80"
+      - "5180:80"
     networks:
       - alquileres-production
   bicicletas-db:
+    #build:
+    #  context: ./db/
     image: postgres
     ports:
       - "5436:5432"
     environment:
       - POSTGRES_PASSWORD=password 
     volumes:
-      - ./db/data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
+      - ./db/backup/:/docker-entrypoint-initdb.d/
     networks:
-     - alquileres-production
+      - alquileres-production
 
 networks:
   alquileres-production:
+
+volumes:
+  db-data:

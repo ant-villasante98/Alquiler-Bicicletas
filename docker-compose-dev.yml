@@ -15,8 +15,9 @@ services:
     ports:
       - "5439:5432"
     volumes:
-      #- ./db/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
-      - ./db/data-dev/:/var/lib/postgresql/data
+      - db-data-dev:/var/lib/postgresql/data
+      - ./db/backup/:/docker-entrypoint-initdb.d/
+      #- ./db/data-dev2/:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=password
     networks:
@@ -27,3 +28,5 @@ networks:
   red-dev:
     driver: bridge
     #external: true
+volumes:
+  db-data-dev:
