@@ -1,6 +1,6 @@
 version: '3'
 services:
-  estaciones-service:
+  estaciones-service-dev:
     build:
       context: ./components/EstacionWebApi/
       dockerfile: ./Dockerfile.dev
@@ -10,7 +10,7 @@ services:
       - ./components/EstacionWebApi/:/app
     networks:
       - red-dev 
-  bicicletas-db:
+  bicicletas-db-dev:
     image: postgres
     ports:
       - "5439:5432"
