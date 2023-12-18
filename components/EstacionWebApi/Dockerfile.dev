@@ -1,0 +1,8 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+
+RUN dotnet --version
+
+WORKDIR /app
+
+
+CMD ["dotnet","run","--project","./src/WebApi/WebApi.csproj"]

@@ -1,0 +1,11 @@
+version: '3'
+services:
+  estacion-service:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "5148:5048"
+    volumes:
+      - .:/app
+
