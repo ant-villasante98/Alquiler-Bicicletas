@@ -1,7 +1,7 @@
 using Domain.CustomExeptions;
 using Domain.Models;
 using Domain.Repositories;
-using Domain.Service.Implement;
+using Application.Services;
 using Moq;
 
 namespace DomainTest.Services

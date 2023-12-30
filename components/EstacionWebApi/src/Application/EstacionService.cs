@@ -3,7 +3,7 @@ using Domain.Models;
 using Domain.Repositories;
 using Domain.Services;
 
-namespace Domain.Service.Implement;
+namespace Application.Services;
 
 public class EstacionService : IEstacionService
 {

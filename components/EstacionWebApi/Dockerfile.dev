@@ -5,4 +5,4 @@ RUN dotnet --version
 WORKDIR /app
 
 
-CMD ["dotnet","run","--project","./src/WebApi/WebApi.csproj"]
+CMD ["dotnet","run","--project","./WebApi/WebApi.csproj"]
