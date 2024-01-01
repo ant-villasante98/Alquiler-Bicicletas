@@ -11,7 +11,7 @@ SET standard_conforming_strings = on;
 -- Drop databases (except postgres and template1)
 --
 
-DROP DATABASE IF EXISTS bicicletas;
+DROP DATABASE IF EXISTS bicicletas_old;
 
 --
 -- Drop roles
@@ -128,7 +128,7 @@ GRANT CONNECT ON DATABASE template1 TO PUBLIC;
 --
 
 --
--- Database "bicicletas" dump
+-- Database "bicicletas_old" dump
 --
 
 --
@@ -150,15 +150,15 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: bicicletas; Type: DATABASE; Schema: -; Owner: postgres
+-- Name: bicicletas_old; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE bicicletas WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+CREATE DATABASE bicicletas_old WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
 
 
-ALTER DATABASE bicicletas OWNER TO postgres;
+ALTER DATABASE bicicletas_old OWNER TO postgres;
 
-\connect bicicletas
+\connect bicicletas_old
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;

@@ -1,4 +1,6 @@
-using WebApi.IOC;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using WebApi.Dependencies;
+using HealthChecks.UI.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +54,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.UseCors("CorsPolicy");
 

@@ -1,10 +1,10 @@
+using Application.Services;
 using Domain.CustomExeptions;
 using Domain.Models;
 using Domain.Repositories;
-using Application.Services;
 using Moq;
 
-namespace DomainTest.Services
+namespace ApplicationTest.Services
 {
     public class EstacionServiceTest
     {
@@ -107,14 +107,14 @@ namespace DomainTest.Services
             var estacionService = new EstacionService(repositoryMock.Object);
 
             // Act
-            await estacionService.Update(estacionId, expectedEstacion);
+            await estacionService.Update(estacionId, expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud);
 
             // Assert
 
             repositoryMock.Verify(repo => repo.FindbyId(estacionId), Times.Once);
             repositoryMock.Verify(repo => repo.Update(It.IsAny<Estacion>()), Times.Once);
             await Assert.ThrowsAsync<NullReferenceException>(
-                () => estacionService.Update(9, expectedEstacion)
+                () => estacionService.Update(9, expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud)
             );
             Assert.Equal(expectedEstacion.Id, returnedEstacion.Id);
             Assert.Equal(expectedEstacion.Nombre, returnedEstacion.Nombre);
@@ -165,10 +165,10 @@ namespace DomainTest.Services
 
             // Assert
             await Assert.ThrowsAsync<NullReferenceException>(
-                () => estacionService.Update(9, expectedEstacion)
+                () => estacionService.Update(9, expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud)
             );
             await Assert.ThrowsAsync<CouldNotUpdateDBException>(
-                () => estacionService.Update(estacionId, expectedEstacionFall)
+                () => estacionService.Update(estacionId, expectedEstacionFall.Nombre, expectedEstacionFall.Latitud, expectedEstacionFall.Longitud)
             );
         }
 

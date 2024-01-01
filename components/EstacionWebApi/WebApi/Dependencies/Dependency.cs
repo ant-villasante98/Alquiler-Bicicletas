@@ -1,14 +1,16 @@
-using Domain.Repositories;
+using System.Reflection;
+using Application;
 using Application.Services;
+using Domain.Repositories;
 using Domain.Services;
 using Infrastructure.Context;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Services;
-using WebApi.Services.Implement;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using WebApi.Utilities;
 
-namespace WebApi.IOC;
+namespace WebApi.Dependencies;
 
 public static class Dependency
 {
@@ -31,8 +33,15 @@ public static class Dependency
         services.AddScoped<IEstacionService, EstacionService>();
 
         // Applicion Injections
-        services.AddScoped<IApplicationEstacion, ApplicationEstacion>();
         services.AddAutoMapper(typeof(AutoMapperProfile));
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssemblyContaining<ApplicationAssemblyReference>();
+        });
+
+        services.AddHealthChecks()
+            .AddCheck("self", () => HealthCheckResult.Healthy())
+            .AddDbContextCheck<BicicletasBdaContext>();
 
         return services;
     }

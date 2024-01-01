@@ -5,13 +5,13 @@ public partial class Estacion
     public long Id { get; }
 
     //INFO: Verificar el la cadena vacia
-    public string Nombre { get; } = string.Empty;
+    public string Nombre { get; private set; } = string.Empty;
 
-    public DateTime FechaHoraCreacion { get; }
+    public DateTime FechaHoraCreacion { get; private set; }
 
-    public double Latitud { get; }
+    public double Latitud { get; private set; }
 
-    public double Longitud { get; }
+    public double Longitud { get; private set; }
 
     private Estacion() { }
 
@@ -32,7 +32,21 @@ public partial class Estacion
 
     public static Estacion Create(string nombre, double latitud, double longitud)
     {
-        return new Estacion(0, nombre, DateTime.Now, latitud, longitud);
+        return new Estacion()
+        {
+            Nombre = nombre,
+            FechaHoraCreacion = DateTime.UtcNow,
+            Latitud = latitud,
+            Longitud = longitud
+        };
+    }
+
+    public void Update(string nombre, double latitud, double longitud)
+    {
+        Nombre = nombre;
+        Latitud = latitud;
+        Longitud = longitud;
+
     }
 
     //public Estacion FechaKind(DateTimeKind kind)

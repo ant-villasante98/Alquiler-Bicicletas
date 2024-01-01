@@ -1,19 +1,23 @@
+using Application.Create;
+using Application.Delete;
+using Application.GetAll;
+using Application.GetById;
+using Application.Update;
 using Domain.CustomExeptions;
+using MediatR;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Request;
 using WebApi.Response;
-using WebApi.Services;
 
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 [ApiController]
 public class EstacionesController : ControllerBase
 {
-    private readonly IApplicationEstacion _application;
+    private readonly IMediator _mediator;
 
-    public EstacionesController(IApplicationEstacion application)
+    public EstacionesController(IMediator mediator)
     {
-        _application = application;
+        _mediator = mediator;
     }
 
     [HttpGet]
@@ -21,7 +25,8 @@ public class EstacionesController : ControllerBase
     {
         try
         {
-            List<EstacionDto> estacionDtos = await _application.GetAll();
+            //List<EstacionDto> estacionDtos = await _application.GetAll();
+            var estacionDtos = await _mediator.Send(new EstacionesGetAllQuery());
             return Ok(estacionDtos);
         }
         catch (System.Exception)
@@ -31,13 +36,14 @@ public class EstacionesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<EstacionDto>> Create([FromBody] EstacionCreate estacion)
+    public async Task<IActionResult> Create([FromBody] EstacionCreateCommand command)
     {
         try
         {
-            EstacionDto savedEstacion = await _application.Create(estacion);
+            //EstacionDto savedEstacion = await _application.Create(estacion);
             // TODO: Tambine se puede devolve el objeto creado
-            return Created($"{Request.GetDisplayUrl()}/{savedEstacion.Id}", null);
+            var savedEstacionId = await _mediator.Send(command);
+            return Created($"{Request.GetDisplayUrl()}/{savedEstacionId}", null);
         }
         catch (System.Exception ex)
         {
@@ -51,7 +57,8 @@ public class EstacionesController : ControllerBase
     {
         try
         {
-            EstacionDto estacionDto = await _application.GetById(id);
+            //EstacionDto estacionDto = await _application.GetById(id);
+            var estacionDto = await _mediator.Send(new EstacionGetByIdQuery(id));
             return Ok(estacionDto);
         }
         catch (System.Exception ex)
@@ -65,7 +72,8 @@ public class EstacionesController : ControllerBase
     {
         try
         {
-            await _application.Delete(id);
+            //await _application.Delete(id);
+            await _mediator.Send(new EstacionDeleteCommand(id));
             return NoContent();
         }
         catch (CouldNotUpdateDBException ex)
@@ -80,11 +88,16 @@ public class EstacionesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(long id, [FromBody] EstacionDto estacion)
+    public async Task<IActionResult> Update(long id, [FromBody] EstacionUpdateCommand command)
     {
+        if (id != command.Id)
+        {
+            return BadRequest("El id de la ruta del cuerpo son diferentes.");
+        }
         try
         {
-            await _application.Update(id, estacion);
+            //await _application.Update(id, estacion);
+            await _mediator.Send(command);
             return NoContent();
         }
         catch (NullReferenceException ex)

@@ -14,11 +14,11 @@ public class EstacionService : IEstacionService
         _repository = repository;
     }
 
-    public async Task<Estacion> Create(Estacion model)
+    public async Task<Estacion> Create(string nombre, double latitud, double longitud)
     {
         try
         {
-            Estacion estacion = await _repository.Add(model);
+            Estacion estacion = await _repository.Add(Estacion.Create(nombre, latitud, longitud));
             return estacion;
         }
         catch (Exception ex)
@@ -55,17 +55,15 @@ public class EstacionService : IEstacionService
         return estacion;
     }
 
-    public async Task Update(long id, Estacion model)
+    public async Task Update(long id, string nombre, double latitud, double longitud)
     {
-        Estacion originalEstacion = await this.GetById(id);
+        Estacion estacion = await this.GetById(id);
         try
         {
-            Estacion estacion = new Estacion(
-                id,
-                model.Nombre,
-                originalEstacion.FechaHoraCreacion,
-                model.Latitud,
-                model.Longitud
+            estacion.Update(
+                nombre,
+                latitud,
+                longitud
             );
             await _repository.Update(estacion);
         }
