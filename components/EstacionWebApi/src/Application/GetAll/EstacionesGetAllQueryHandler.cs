@@ -25,7 +25,7 @@ internal sealed class EstacionesGetAllQueryHandler
             .Select(
                 e =>
                     new EstacionDto(
-                        id: e.Id,
+                        id: e.Id.Value,
                         nombre: e.Nombre,
                         latitud: e.Latitud,
                         longitud: e.Longitud,

@@ -22,7 +22,9 @@ public partial class BicicletasBdaContext : DbContext
 
             entity.ToTable("estaciones");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id")
+            .HasConversion(v => v.Value, v=> new EstacionId(v))
+            .ValueGeneratedOnAdd();
             entity
                 .Property(e => e.FechaHoraCreacion)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")

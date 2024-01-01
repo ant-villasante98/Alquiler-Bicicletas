@@ -28,7 +28,7 @@ public class EstacionService : IEstacionService
         }
     }
 
-    public async Task Delete(long id)
+    public async Task Delete(EstacionId id)
     {
         Estacion estacion = await this.GetById(id);
         try
@@ -47,7 +47,7 @@ public class EstacionService : IEstacionService
         return estaciones;
     }
 
-    public async Task<Estacion> GetById(long id)
+    public async Task<Estacion> GetById(EstacionId id)
     {
         Estacion estacion =
             await _repository.FindbyId(id)
@@ -55,7 +55,7 @@ public class EstacionService : IEstacionService
         return estacion;
     }
 
-    public async Task Update(long id, string nombre, double latitud, double longitud)
+    public async Task Update(EstacionId id, string nombre, double latitud, double longitud)
     {
         Estacion estacion = await this.GetById(id);
         try

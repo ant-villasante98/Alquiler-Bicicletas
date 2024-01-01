@@ -1,5 +1,3 @@
-
-
 using Domain.Models;
 using Domain.Services;
 using MediatR;
@@ -22,6 +20,6 @@ internal class EstacionCreateCommandHandler : IRequestHandler<EstacionCreateComm
                 request.Latitud,
                 request.Longitud
         );
-        return estacion.Id;
+        return estacion.Id.Value;
     }
 }

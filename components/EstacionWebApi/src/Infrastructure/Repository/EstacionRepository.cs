@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository;
 
-public class EstacionRepository : GenericRepository<Estacion, long>, IEstacionRepository
+public class EstacionRepository : GenericRepository<Estacion, EstacionId>, IEstacionRepository
 {
     private readonly BicicletasBdaContext _context;
 

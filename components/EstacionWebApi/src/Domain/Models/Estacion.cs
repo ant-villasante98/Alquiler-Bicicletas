@@ -2,7 +2,7 @@
 
 public partial class Estacion
 {
-    public long Id { get; }
+    public EstacionId Id { get; }
 
     //INFO: Verificar el la cadena vacia
     public string Nombre { get; private set; } = string.Empty;
@@ -16,7 +16,7 @@ public partial class Estacion
     private Estacion() { }
 
     public Estacion(
-        long id,
+        EstacionId id,
         string nombre,
         DateTime fechaHoraCreacion,
         double latitud,
@@ -49,14 +49,4 @@ public partial class Estacion
 
     }
 
-    //public Estacion FechaKind(DateTimeKind kind)
-    //{
-    //    return new Estacion(
-    //        id: Id,
-    //        nombre: Nombre,
-    //        fechaHoraCreacion: DateTime.SpecifyKind(FechaHoraCreacion, kind),
-    //        latitud: Latitud,
-    //        longitud: Longitud
-    //    );
-    //}
 }

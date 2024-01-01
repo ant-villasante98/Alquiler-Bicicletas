@@ -38,7 +38,7 @@ public class GenericRepository<TModel, IdType> : IGenericRepository<TModel, IdTy
         }
         catch (Exception ex)
         {
-            //Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.Message);
             throw;
         }
     }
@@ -50,11 +50,6 @@ public class GenericRepository<TModel, IdType> : IGenericRepository<TModel, IdTy
             _context.Set<TModel>().Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-        //catch (DbUpdateConcurrencyException)
-        //{
-        //    // Todo: personalizar exception de concurrencia
-        //    throw;
-        //}
         catch (Exception)
         {
             throw;
@@ -74,19 +69,19 @@ public class GenericRepository<TModel, IdType> : IGenericRepository<TModel, IdTy
         }
     }
 
-    private IQueryable<TModel> Query(Expression<Func<TModel, bool>> filter = null!)
-    {
-        try
-        {
-            IQueryable<TModel> queryModel =
-                filter == null ? _context.Set<TModel>() : _context.Set<TModel>().Where(filter);
-            return queryModel;
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
+   //private IQueryable<TModel> Query(Expression<Func<TModel, bool>> filter = null!)
+   //{
+   //    try
+   //    {
+   //        IQueryable<TModel> queryModel =
+   //            filter == null ? _context.Set<TModel>() : _context.Set<TModel>().Where(filter);
+   //        return queryModel;
+   //    }
+   //    catch (Exception)
+   //    {
+   //        throw;
+   //    }
+   //}
 
     public virtual async Task<TModel> FindbyId(IdType id)
     {

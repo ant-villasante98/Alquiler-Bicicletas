@@ -13,7 +13,7 @@ namespace ApplicationTest.Services
         {
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
-            int expectedId = 3;
+            EstacionId expectedId = new EstacionId(3);
             var expectedEstacion = new Estacion(
                 expectedId,
                 "Mi estacion",
@@ -30,7 +30,7 @@ namespace ApplicationTest.Services
             var result = await estacionService.GetById(expectedId);
 
             // Assert
-            await Assert.ThrowsAsync<NullReferenceException>(() => estacionService.GetById(1));
+            await Assert.ThrowsAsync<NullReferenceException>(() => estacionService.GetById(new EstacionId(1)));
 
             Assert.NotNull(result);
             Assert.Equal(result.Id, expectedEstacion.Id);
@@ -46,8 +46,8 @@ namespace ApplicationTest.Services
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
 
-            Estacion estacion1 = new Estacion(1, "Puente", DateTime.Now, 1.324, 6.234);
-            Estacion estacion2 = new Estacion(1, "Puente", DateTime.Now, 1.324, 6.234);
+            Estacion estacion1 = new Estacion(new EstacionId(1), "Puente", DateTime.Now, 1.324, 6.234);
+            Estacion estacion2 = new Estacion(new EstacionId(1), "Puente", DateTime.Now, 1.324, 6.234);
 
             List<Estacion> estacionList = new List<Estacion>() { estacion1, estacion2 };
 
@@ -68,7 +68,7 @@ namespace ApplicationTest.Services
         {
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
-            long estacionId = 5;
+            EstacionId estacionId = new EstacionId(5);
             Estacion originalEstacion = new Estacion(
                 estacionId,
                 "Puente",
@@ -114,7 +114,7 @@ namespace ApplicationTest.Services
             repositoryMock.Verify(repo => repo.FindbyId(estacionId), Times.Once);
             repositoryMock.Verify(repo => repo.Update(It.IsAny<Estacion>()), Times.Once);
             await Assert.ThrowsAsync<NullReferenceException>(
-                () => estacionService.Update(9, expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud)
+                () => estacionService.Update(new EstacionId(9), expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud)
             );
             Assert.Equal(expectedEstacion.Id, returnedEstacion.Id);
             Assert.Equal(expectedEstacion.Nombre, returnedEstacion.Nombre);
@@ -128,7 +128,7 @@ namespace ApplicationTest.Services
         {
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
-            long estacionId = 5;
+            EstacionId estacionId = new EstacionId(5);
             Estacion originalEstacion = new Estacion(
                 estacionId,
                 "Puente",
@@ -165,7 +165,7 @@ namespace ApplicationTest.Services
 
             // Assert
             await Assert.ThrowsAsync<NullReferenceException>(
-                () => estacionService.Update(9, expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud)
+                () => estacionService.Update(new EstacionId(9), expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud)
             );
             await Assert.ThrowsAsync<CouldNotUpdateDBException>(
                 () => estacionService.Update(estacionId, expectedEstacionFall.Nombre, expectedEstacionFall.Latitud, expectedEstacionFall.Longitud)
@@ -178,7 +178,7 @@ namespace ApplicationTest.Services
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
 
-            long estacionId = 8;
+            EstacionId estacionId = new EstacionId(8);
             Estacion originalEstacion = new Estacion(
                 estacionId,
                 "Puente",
@@ -198,7 +198,7 @@ namespace ApplicationTest.Services
             // Assert
             repositoryMock.Verify(repo => repo.Delete(originalEstacion), Times.Once);
             repositoryMock.Verify(repo => repo.FindbyId(estacionId), Times.Once);
-            await Assert.ThrowsAsync<NullReferenceException>(() => estacionService.Delete(1));
+            await Assert.ThrowsAsync<NullReferenceException>(() => estacionService.Delete(new EstacionId(1)));
         }
     }
 }

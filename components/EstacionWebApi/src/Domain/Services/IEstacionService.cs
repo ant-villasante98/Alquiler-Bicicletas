@@ -4,9 +4,9 @@ namespace Domain.Services;
 
 public interface IEstacionService
 {
-    Task<Estacion> GetById(long id);
+    Task<Estacion> GetById(EstacionId id);
     Task<List<Estacion>> GetAll();
     Task<Estacion> Create(string nombre, double latitud, double longitud);
-    Task Update(long id, string nombre, double latitud, double longitud);
-    Task Delete(long id);
+    Task Update(EstacionId id, string nombre, double latitud, double longitud);
+    Task Delete(EstacionId id);
 }

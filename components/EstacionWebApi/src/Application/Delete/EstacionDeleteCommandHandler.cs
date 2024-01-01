@@ -1,4 +1,5 @@
 
+using Domain.Models;
 using Domain.Services;
 using MediatR;
 
@@ -15,6 +16,6 @@ internal class EstacionDeleteCommandHandler : IRequestHandler<EstacionDeleteComm
 
     public async Task Handle(EstacionDeleteCommand request, CancellationToken cancellationToken)
     {
-        await _service.Delete(request.Id);
+        await _service.Delete(new EstacionId(request.Id));
     }
 }
