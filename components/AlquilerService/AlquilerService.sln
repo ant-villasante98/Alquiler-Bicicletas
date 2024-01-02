@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarifas.Domain", "src\Tarif
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarifas.Infrastructure", "src\Tarifas\Tarifas.Infrastructure\Tarifas.Infrastructure.csproj", "{2D230389-A4A2-432F-9E5C-3AFBE38A3316}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{63837F06-C08E-48B1-B44F-2EB742853203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{2D230389-A4A2-432F-9E5C-3AFBE38A3316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D230389-A4A2-432F-9E5C-3AFBE38A3316}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D230389-A4A2-432F-9E5C-3AFBE38A3316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63837F06-C08E-48B1-B44F-2EB742853203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63837F06-C08E-48B1-B44F-2EB742853203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63837F06-C08E-48B1-B44F-2EB742853203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63837F06-C08E-48B1-B44F-2EB742853203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{546097AE-E025-48A5-8B4C-92089083FEB3} = {BBB06C3E-E078-45E6-8C38-26F68D9F9DC4}

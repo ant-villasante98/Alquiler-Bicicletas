@@ -5,5 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tarifas.Domain\Tarifas.Domain.csproj"/>
+    <ProjectReference Include="..\Tarifas.Application\Tarifas.Application.csproj"/>
+    <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj"/>
+  </ItemGroup>
 
 </Project>

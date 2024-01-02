@@ -12,14 +12,24 @@ services:
         - red-dev
   estaciones-service-dev:
     build:
-      context: ./components/EstacionWebApi/
+      context: ./components/EstacionService/
       dockerfile: ./Dockerfile.dev
     ports:
       - "5070:5048"
     volumes:
-      - ./components/EstacionWebApi/:/app
+      - ./components/EstacionService/:/app/
     networks:
       - red-dev 
+  alquileres-service-dev:
+    build:
+      context: ./components/AlquilerService/
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5054:5053"
+    volumes:
+      - ./components/AlquilerService/:/app/
+    networks:
+      - red-dev
   bicicletas-db-dev:
     image: postgres
     ports:

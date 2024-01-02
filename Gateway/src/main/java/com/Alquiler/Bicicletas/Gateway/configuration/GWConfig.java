@@ -8,14 +8,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GWConfig {
-    @Bean
-    public RouteLocator ConfigurationRute(
-            RouteLocatorBuilder builder,
-            @Value("${gateway.url-service-estaciones}") String uriEstaciones) {
+  @Bean
+  public RouteLocator ConfigurationRute(
+      RouteLocatorBuilder builder,
+      @Value("${gateway.uri-service-estaciones}") String uriServiceEstaciones,
+      @Value("${gateway.uri-service-alquileres}") String uriServiceAlquileres) {
 
-        return builder.routes()
-                .route(
-                        p -> p.path("/api/v1/estaciones/**").uri(uriEstaciones))
-                .build();
-    }
+    return builder.routes()
+        .route(
+            p -> p.path("/api/v1/estaciones/**").uri(uriServiceEstaciones))
+        .route(
+            p -> p.path("/api/v1/tarifas/**").uri(uriServiceAlquileres))
+        .build();
+  }
 }
