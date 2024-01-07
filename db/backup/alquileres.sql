@@ -39,7 +39,7 @@ CREATE TABLE public.alquileres (
     estacion_retiro bigint,
     estacion_devolucion bigint,
     fecha_hora_retiro timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    fecha_hora_devolucion timestamp without time zone NOT NULL,
+    fecha_hora_devolucion timestamp without time zone NULL,
     monto double precision,
     id_tarifa bigint
 );

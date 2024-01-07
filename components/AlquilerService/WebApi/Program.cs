@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ApplicationDependencyInjection(builder.Configuration);
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

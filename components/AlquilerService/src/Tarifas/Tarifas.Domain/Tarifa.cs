@@ -41,4 +41,17 @@ public class Tarifa
         };
 
     }
+
+    public void Update(int tipoTarifa, char definicion, TarifaDiaSemana diaSemana, TarifaFecha fecha, TarifaMonto montoFijoAlquiler, TarifaMonto montoMinutoFraccion, TarifaMonto montoKm, TarifaMonto montoHora)
+    {
+
+        TipoTarifa = tipoTarifa;
+        Definicion = definicion;
+        DiaSemana = diaSemana;
+        Fecha = fecha;
+        MontoFijoAlquiler = montoFijoAlquiler;
+        MontoMinutoFraccion = montoMinutoFraccion;
+        MontoKm = montoKm;
+        MontoHora = montoHora;
+    }
 }

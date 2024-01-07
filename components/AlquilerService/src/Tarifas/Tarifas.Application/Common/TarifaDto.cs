@@ -1,7 +1,7 @@
 
 namespace Tarifas.Application.Common;
 
-public class TarifaResponse
+public class TarifaDto
 {
 
     public long Id { get; init; }
@@ -16,8 +16,8 @@ public class TarifaResponse
     public double MontoKm { get; private set; }
     public double MontoHora { get; private set; }
 
-    private TarifaResponse() { }
-    public TarifaResponse(long id, int tipoTarifa, char definicion, int? diaSemana, int? diaMes, int? mes, int? anio, double montoFijoAlquiler, double montoMinutoFraccion, double montoKm, double montoHora)
+    private TarifaDto() { }
+    public TarifaDto(long id, int tipoTarifa, char definicion, int? diaSemana, int? diaMes, int? mes, int? anio, double montoFijoAlquiler, double montoMinutoFraccion, double montoKm, double montoHora)
     {
         Id = id;
         TipoTarifa = tipoTarifa;

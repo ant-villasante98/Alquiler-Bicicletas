@@ -1,4 +1,10 @@
 
+using Alquileres.Application;
+using Alquileres.Application.Create;
+using Alquileres.Domain;
+using Alquileres.Domain.Services;
+using Alquileres.Infrastructure.Repository;
+using Alquileres.Infrastructure.Repository.Services;
 using Microsoft.EntityFrameworkCore;
 using Tarifas.Application;
 using Tarifas.Application.Common;
@@ -20,9 +26,14 @@ public static class ApplicationDependency
         services.AddScoped<ITarifaService, TarifaService>();
         services.AddScoped<ITarifaRepository, TarifaRepository>();
 
+        services.AddScoped<IAlquilerRepository, AlquilerRepository>();
+        services.AddScoped<ICreateAlquiler, CreateAlquiler>();
+        services.AddScoped<IEstacionService, EstacionService>();
+
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssemblyContaining<TarifaAssemblyReference>();
+            config.RegisterServicesFromAssemblyContaining<AlquilerAssemblyReference>();
         }
         );
 

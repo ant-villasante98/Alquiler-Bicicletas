@@ -4,4 +4,4 @@ using Tarifas.Application.Common;
 
 namespace Tarifas.Application.GetAll;
 
-public record GetAllTarifaCommand() : IRequest<List<TarifaResponse>>;
+public record GetAllTarifaQuery() : IRequest<List<TarifaDto>>;

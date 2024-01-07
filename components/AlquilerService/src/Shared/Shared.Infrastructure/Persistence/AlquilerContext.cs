@@ -1,4 +1,5 @@
 
+using Alquileres.Domain;
 using Microsoft.EntityFrameworkCore;
 using Shared.Infrastructure.Persistence.EntityConfigurations;
 using Tarifas.Domain;
@@ -14,6 +15,8 @@ public class AlquilerContext : DbContext
 
     public virtual DbSet<Tarifa> Tarifas { get; set; }
 
+    public virtual DbSet<Alquiler> Alquileres { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,5 +24,6 @@ public class AlquilerContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new TarifaConfiguration());
+        modelBuilder.ApplyConfiguration(new AlquilerConfiguration());
     }
 }

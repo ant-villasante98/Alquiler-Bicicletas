@@ -2,7 +2,7 @@ namespace Tarifas.Domain;
 
 public record TarifaMonto
 {
-    public double Value;
+    public double Value { get; private set; }
     private TarifaMonto() { }
     public TarifaMonto(double value)
     {

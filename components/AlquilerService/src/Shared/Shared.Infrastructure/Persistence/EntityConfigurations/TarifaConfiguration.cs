@@ -1,4 +1,6 @@
 
+using System.Security.Cryptography.X509Certificates;
+using Alquileres.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Tarifas.Domain;
@@ -53,5 +55,9 @@ public class TarifaConfiguration : IEntityTypeConfiguration<Tarifa>
         .Property(x => x.Value)
         .HasColumnName("monto_minuto_fraccion");
 
+        builder.HasMany<Alquiler>()
+            .WithOne()
+            .HasForeignKey(e => e.TarifaId)
+            .IsRequired();
     }
 }
