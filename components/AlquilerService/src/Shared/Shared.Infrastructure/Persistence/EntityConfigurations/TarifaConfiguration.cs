@@ -55,9 +55,10 @@ public class TarifaConfiguration : IEntityTypeConfiguration<Tarifa>
         .Property(x => x.Value)
         .HasColumnName("monto_minuto_fraccion");
 
-        builder.HasMany<Alquiler>()
-            .WithOne()
-            .HasForeignKey(e => e.TarifaId)
-            .IsRequired();
+        //builder.HasMany<Alquiler>()
+        //    .WithOne()
+        //.HasForeignKey("id_tarifa")
+        //.IsRequired()
+        //    ;
     }
 }

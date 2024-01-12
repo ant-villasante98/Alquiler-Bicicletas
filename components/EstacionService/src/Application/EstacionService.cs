@@ -1,3 +1,4 @@
+using Application.Utility;
 using Domain.CustomExeptions;
 using Domain.Models;
 using Domain.Repositories;
@@ -14,6 +15,19 @@ public class EstacionService : IEstacionService
         _repository = repository;
     }
 
+    public async Task<double> CalcularDistancia(EstacionId origenId, EstacionId destinoId)
+    {
+        Estacion estacionOrigen = await GetById(origenId);
+        Estacion estacionDestino = await GetById(destinoId);
+        double distancia = CalculadorDistcia.CalcularDistancia(
+            latitudOrigen: estacionOrigen.Latitud,
+            longitudOrigen: estacionOrigen.Longitud,
+            latitudDestino: estacionDestino.Latitud,
+            longitudDestino: estacionDestino.Longitud
+        );
+        return distancia;
+    }
+
     public async Task<Estacion> Create(string nombre, double latitud, double longitud)
     {
         try
@@ -21,7 +35,7 @@ public class EstacionService : IEstacionService
             Estacion estacion = await _repository.Add(Estacion.Create(nombre, latitud, longitud));
             return estacion;
         }
-        catch (Exception ex)
+        catch
         {
             //Console.WriteLine(ex);
             throw new CouldNotUpdateDBException("No se pudo agregar la Estacion.");

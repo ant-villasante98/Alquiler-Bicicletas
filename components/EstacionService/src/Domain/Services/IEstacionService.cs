@@ -9,4 +9,5 @@ public interface IEstacionService
     Task<Estacion> Create(string nombre, double latitud, double longitud);
     Task Update(EstacionId id, string nombre, double latitud, double longitud);
     Task Delete(EstacionId id);
+    Task<double> CalcularDistancia(EstacionId origenId, EstacionId destinoId);
 }

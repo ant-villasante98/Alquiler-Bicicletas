@@ -1,6 +1,8 @@
 
 using Alquileres.Application;
 using Alquileres.Application.Create;
+using Alquileres.Application.Finish;
+using Alquileres.Application.GetAll;
 using Alquileres.Domain;
 using Alquileres.Domain.Services;
 using Alquileres.Infrastructure.Repository;
@@ -29,6 +31,8 @@ public static class ApplicationDependency
         services.AddScoped<IAlquilerRepository, AlquilerRepository>();
         services.AddScoped<ICreateAlquiler, CreateAlquiler>();
         services.AddScoped<IEstacionService, EstacionService>();
+        services.AddScoped<IFinishAlquiler, FinishAlquiler>();
+        services.AddScoped<IGetAllAlquiler, GetAllAlquiler>();
 
         services.AddMediatR(config =>
         {

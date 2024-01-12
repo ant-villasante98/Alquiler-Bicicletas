@@ -1,5 +1,7 @@
 
 using Alquileres.Domain;
+using Microsoft.EntityFrameworkCore;
+using Tarifas.Domain;
 using Tarifas.Shared.Infrastructure.Persistence;
 
 namespace Alquileres.Infrastructure.Repository;
@@ -20,13 +22,19 @@ public class AlquilerRepository : IAlquilerRepository
         return alquiler;
     }
 
-    public Task<Alquiler> FindByIdAsync(AlquilerId id)
+    public async Task<List<Alquiler>> FindAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Alquileres.ToListAsync();
     }
 
-    public Task UpdateAsync(Alquiler alquiler)
+    public async Task<Alquiler> FindByIdAsync(AlquilerId id)
     {
-        throw new NotImplementedException();
+        return await _context.Alquileres.Include(alq => alq.Tarifa).FirstOrDefaultAsync(alq => alq.Id.Equals(id));
+    }
+
+    public async Task UpdateAsync(Alquiler alquiler)
+    {
+        _context.Alquileres.Update(alquiler).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
     }
 }

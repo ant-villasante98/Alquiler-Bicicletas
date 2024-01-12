@@ -50,5 +50,11 @@ public class AlquilerConfiguration : IEntityTypeConfiguration<Alquiler>
             .Property(a => a.TarifaId)
             .HasColumnName("id_tarifa")
             .HasConversion(v => v.Value, v => new TarifaId(v));
+
+        builder.HasOne(a => a.Tarifa)
+            .WithMany()
+        .HasForeignKey(a => a.TarifaId)
+        //.IsRequired()
+        ;
     }
 }

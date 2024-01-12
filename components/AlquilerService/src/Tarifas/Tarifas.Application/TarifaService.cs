@@ -31,6 +31,12 @@ public class TarifaService : ITarifaService
         return await _repository.FindAll();
     }
 
+    public async Task<Tarifa> GetByFecha(TarifaFecha fecha)
+    {
+        Tarifa tarifa = await _repository.FindByFecha(fecha);
+        return tarifa;
+    }
+
     public async Task<Tarifa> GetById(TarifaId id)
     {
         return await _repository.FindById(id);

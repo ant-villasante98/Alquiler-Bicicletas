@@ -8,4 +8,6 @@ public interface IAlquilerRepository
     Task UpdateAsync(Alquiler alquiler);
 
     Task<Alquiler> FindByIdAsync(AlquilerId id);
+    Task<List<Alquiler>> FindAllAsync();
+
 }

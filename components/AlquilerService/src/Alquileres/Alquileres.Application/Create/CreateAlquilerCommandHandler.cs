@@ -1,12 +1,13 @@
-
 using Alquileres.Application.Common;
 using Alquileres.Domain;
 using Alquileres.Domain.Services;
 using MediatR;
+using Tarifas.Domain;
 
 namespace Alquileres.Application.Create;
 
-internal class CreateAlquilerCommandHandler : IRequestHandler<CreateAlquilerCommand, AlquilerResponse>
+internal class CreateAlquilerCommandHandler
+    : IRequestHandler<CreateAlquilerCommand, AlquilerResponse>
 {
     private readonly ICreateAlquiler _creator;
 
@@ -15,22 +16,27 @@ internal class CreateAlquilerCommandHandler : IRequestHandler<CreateAlquilerComm
         _creator = creator;
     }
 
-    public async Task<AlquilerResponse> Handle(CreateAlquilerCommand request, CancellationToken cancellationToken)
+    public async Task<AlquilerResponse> Handle(
+        CreateAlquilerCommand request,
+        CancellationToken cancellationToken
+    )
     {
         Alquiler alquiler = await _creator.Create(
             cliente: request.Cliente,
             estacionRetiro: new AlquilerEstacionId(request.EstacionRetiroId)
         );
+
         return new AlquilerResponse(
-            id: alquiler.TarifaId.Value,
-            estado: (byte)alquiler.Estado,
-            cliente: alquiler.Cliente,
-            estacionRetiro: alquiler.EstacionRetiro.Value,
-            estacionDevolucion: alquiler.EstacionDevolucion?.Value,
-            fechaHoraRetiro: alquiler.FechaHoraRetiro,
-            fechaHoraDevolucion: alquiler.FechaHoraDevolucion,
-            monto: alquiler.Monto?.Value,
-            tarifaId: alquiler.TarifaId.Value
+            Id: alquiler.Id.Value,
+            Estado: (byte)alquiler.Estado,
+            Cliente: alquiler.Cliente,
+            EstacionRetiro: alquiler.EstacionRetiro.Value,
+            EstacionDevolucion: alquiler.EstacionDevolucion?.Value,
+            FechaHoraRetiro: alquiler.FechaHoraRetiro,
+            FechaHoraDevolucion: alquiler.FechaHoraDevolucion,
+            Monto: alquiler.Monto?.Value,
+            TarifaId: alquiler.TarifaId.Value
         );
     }
 }
+

@@ -9,4 +9,5 @@ public interface ITarifaRepository
     Task Delete(Tarifa tarifa);
     Task Update(Tarifa tarifa);
     Task<Tarifa> Add(Tarifa tarifa);
+    Task<Tarifa> FindByFecha(TarifaFecha fecha);
 }

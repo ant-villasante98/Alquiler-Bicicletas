@@ -1,3 +1,4 @@
+using Application.CalcularDistancia;
 using Application.Create;
 using Application.Delete;
 using Application.GetAll;
@@ -9,7 +10,9 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Response;
 
-[Route("api/v1/[controller]")]
+namespace WebApi.Controllers;
+
+[Route("api/v1/estaciones")]
 [ApiController]
 public class EstacionesController : ControllerBase
 {
@@ -108,5 +111,12 @@ public class EstacionesController : ControllerBase
         {
             return Conflict(ex.Message);
         }
+    }
+
+    [HttpGet("calcular-distancia")]
+    public async Task<ActionResult<DistanciaResponse>> CalcularDistancia([FromQuery()] long origen, [FromQuery] long destino)
+    {
+        DistanciaResponse distancia = await _mediator.Send(new CalcularDistanciaEstacionCommand(origen, destino));
+        return Ok(distancia);
     }
 }

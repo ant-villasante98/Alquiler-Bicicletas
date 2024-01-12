@@ -54,4 +54,6 @@ public class Tarifa
         MontoKm = montoKm;
         MontoHora = montoHora;
     }
+
+
 }

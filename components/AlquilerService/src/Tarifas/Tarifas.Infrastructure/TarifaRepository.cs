@@ -34,6 +34,12 @@ public class TarifaRepository : ITarifaRepository
         return await _context.Tarifas.ToListAsync();
     }
 
+    public async Task<Tarifa> FindByFecha(TarifaFecha fecha)
+    {
+        Tarifa? tarifa = await _context.Tarifas.Where(t => t.Fecha.Dia == fecha.Dia && t.Fecha.Mes == fecha.Mes && t.Fecha.Anio == fecha.Anio).FirstOrDefaultAsync();
+        return tarifa;
+    }
+
     public async Task<Tarifa> FindById(TarifaId id)
     {
         return await _context.Tarifas.FindAsync(id);
