@@ -40,8 +40,9 @@ public class CreateAlquilerTest
                     fechaHoraRetiro: a.FechaHoraRetiro,
                     fechaHoraDevolucion: a.FechaHoraDevolucion,
                     monto: a.Monto,
-                    tarifaId: a.TarifaId
-                );
+                    tarifaId: a.TarifaId,
+                    tarifa: It.IsAny<Tarifa>()
+                    );
             }).ReturnsAsync(
                 It.IsAny<Alquiler>()
             );

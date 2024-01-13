@@ -18,7 +18,7 @@ public class Alquiler
 
     private Alquiler() { }
 
-    public Alquiler(AlquilerId id, AlquilerEstado estado, string cliente, AlquilerEstacionId estacionRetiro, AlquilerEstacionId? estacionDevolucion, DateTime fechaHoraRetiro, DateTime? fechaHoraDevolucion, AlquilerMonto? monto, TarifaId tarifaId)
+    public Alquiler(AlquilerId id, AlquilerEstado estado, string cliente, AlquilerEstacionId estacionRetiro, AlquilerEstacionId? estacionDevolucion, DateTime fechaHoraRetiro, DateTime? fechaHoraDevolucion, AlquilerMonto? monto, TarifaId tarifaId, Tarifa tarifa)
     {
         Id = id;
         Estado = estado;
@@ -29,6 +29,7 @@ public class Alquiler
         FechaHoraDevolucion = fechaHoraDevolucion;
         Monto = monto;
         TarifaId = tarifaId;
+        Tarifa = tarifa;
     }
 
     public static Alquiler StartAlquiler(string cliente, AlquilerEstacionId estacionRetiro)
@@ -50,29 +51,30 @@ public class Alquiler
     {
         TarifaId = tarifaId;
     }
-    public void Finish(AlquilerEstacionId estacionDevolucionId, EstacionDistancia estacionDistancia)
+    public void Finish(AlquilerEstacionId estacionDevolucionId)
     {
         DateTime fechaHoraDevolucion = DateTime.UtcNow;
         FechaHoraDevolucion = fechaHoraDevolucion;
         EstacionDevolucion = estacionDevolucionId;
-        Monto = new AlquilerMonto(CalculateAmount(estacionDistancia.Value));
         Estado = AlquilerEstado.Finalizado; ;
     }
-
-    private double CalculateAmount(double distanciaKm)
+    public void SetAlquilerMonto(AlquilerMonto montoTotal)
     {
-        DateTime fechaDevolucion = FechaHoraDevolucion ?? throw new Exception("La fecha de devolucion de null");
-        TimeSpan tiempoAlquilado = fechaDevolucion - FechaHoraRetiro;
-        double montoHora = tiempoAlquilado.Hours * Tarifa.MontoHora.Value;
-        double montoKm = distanciaKm * Tarifa.MontoKm.Value;
-        double montoFraccion = 0;
-        if (tiempoAlquilado.Minutes >= 31)
-        {
-            montoFraccion += tiempoAlquilado.Minutes * Tarifa.MontoMinutoFraccion.Value;
-        }
-
-        double montoTotal = Tarifa.MontoFijoAlquiler.Value + montoHora + montoKm + montoFraccion;
-        return montoTotal;
-
+        Monto = montoTotal;
     }
+
+    //private double CalculateAmount(double distanciaKm)
+    //{
+    //    DateTime fechaDevolucion = FechaHoraDevolucion ?? throw new Exception("La fecha de devolucion de null");
+    //    TimeSpan tiempoAlquilado = fechaDevolucion - FechaHoraRetiro;
+    //    double montoHora = tiempoAlquilado.Hours * Tarifa.MontoHora.Value;
+    //    double montoKm = distanciaKm * Tarifa.MontoKm.Value;
+    //    double montoFraccion = 0;
+    //    if (tiempoAlquilado.Minutes >= 31)
+    //    {
+    //        montoFraccion += tiempoAlquilado.Minutes * Tarifa.MontoMinutoFraccion.Value;
+    //    }
+    //    double montoTotal = Tarifa.MontoFijoAlquiler.Value + montoHora + montoKm + montoFraccion;
+    //    return montoTotal;
+    //}
 }

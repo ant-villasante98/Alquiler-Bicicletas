@@ -11,12 +11,13 @@ public class FinishAlquiler : IFinishAlquiler
 {
     private readonly IAlquilerRepository _repository;
     private readonly IEstacionService _estacionService;
-    private readonly ITarifaService _tarifaService;
+    private readonly IAlquilerService _alquilerService;
 
-    public FinishAlquiler(IAlquilerRepository repository, IEstacionService estacionService)
+    public FinishAlquiler(IAlquilerRepository repository, IEstacionService estacionService, IAlquilerService alquilerService)
     {
         _repository = repository;
         _estacionService = estacionService;
+        _alquilerService = alquilerService;
     }
 
     public async Task Finish(AlquilerId id, AlquilerEstacionId estacionId)
@@ -28,10 +29,11 @@ public class FinishAlquiler : IFinishAlquiler
         }
         EstacionDistancia distancia = await _estacionService.CalculateDistance(alquiler.EstacionRetiro, estacionId);
 
-        alquiler.Finish(estacionId, distancia);
+        alquiler.Finish(estacionId);
+        DateTime fechaDevolucion = alquiler.FechaHoraDevolucion ?? throw new Exception("La fecha de devolucion no puede ser null.");
+        AlquilerMonto montoTotal = _alquilerService.CalcularMontoTotal(fechaDevolucion - alquiler.FechaHoraRetiro, alquiler.Tarifa, distancia);
+        alquiler.SetAlquilerMonto(montoTotal);
 
         await _repository.UpdateAsync(alquiler);
     }
-
-
 }
