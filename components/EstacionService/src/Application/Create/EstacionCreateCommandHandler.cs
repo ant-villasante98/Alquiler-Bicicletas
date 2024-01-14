@@ -17,8 +17,8 @@ internal class EstacionCreateCommandHandler : IRequestHandler<EstacionCreateComm
     {
         Estacion estacion = await _service.Create(
                 request.Nombre,
-                request.Latitud,
-                request.Longitud
+                new EstacionLatitud(request.Latitud),
+                new EstacionLongitud(request.Longitud)
         );
         return estacion.Id.Value;
     }

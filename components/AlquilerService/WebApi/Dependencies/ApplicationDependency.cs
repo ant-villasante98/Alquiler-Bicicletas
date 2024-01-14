@@ -1,5 +1,6 @@
 
 using Alquileres.Application;
+using Alquileres.Application.Common;
 using Alquileres.Application.Create;
 using Alquileres.Application.Finish;
 using Alquileres.Application.GetAll;
@@ -33,6 +34,7 @@ public static class ApplicationDependency
         services.AddScoped<IEstacionService, EstacionService>();
         services.AddScoped<IFinishAlquiler, FinishAlquiler>();
         services.AddScoped<IGetAllAlquiler, GetAllAlquiler>();
+        services.AddScoped<IAlquilerService, AlquilerService>();
 
         services.AddMediatR(config =>
         {

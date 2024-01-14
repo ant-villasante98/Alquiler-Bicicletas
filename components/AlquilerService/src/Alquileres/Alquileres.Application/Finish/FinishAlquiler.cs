@@ -30,8 +30,8 @@ public class FinishAlquiler : IFinishAlquiler
         EstacionDistancia distancia = await _estacionService.CalculateDistance(alquiler.EstacionRetiro, estacionId);
 
         alquiler.Finish(estacionId);
-        DateTime fechaDevolucion = alquiler.FechaHoraDevolucion ?? throw new Exception("La fecha de devolucion no puede ser null.");
-        AlquilerMonto montoTotal = _alquilerService.CalcularMontoTotal(fechaDevolucion - alquiler.FechaHoraRetiro, alquiler.Tarifa, distancia);
+        DateTime fechaDevolucion = alquiler.FechaHoraDevolucion?.Value ?? throw new Exception("La fecha de devolucion no puede ser null.");
+        AlquilerMonto montoTotal = _alquilerService.CalcularMontoTotal(fechaDevolucion - alquiler.FechaHoraRetiro.Value, alquiler.Tarifa, distancia);
         alquiler.SetAlquilerMonto(montoTotal);
 
         await _repository.UpdateAsync(alquiler);

@@ -21,8 +21,8 @@ internal class EstacionGetByIdQueryHandler : IRequestHandler<EstacionGetByIdQuer
         return new EstacionDto(
             id: estacion.Id.Value,
             nombre: estacion.Nombre,
-            latitud: estacion.Latitud,
-            longitud: estacion.Longitud,
+            latitud: estacion.Latitud.Value,
+            longitud: estacion.Longitud.Value,
             fechaHoraCreacion: estacion.FechaHoraCreacion
         );
     }

@@ -43,6 +43,8 @@ public static class Dependency
             .AddCheck("self", () => HealthCheckResult.Healthy())
             .AddDbContextCheck<BicicletasBdaContext>();
 
+
+
         return services;
     }
 }

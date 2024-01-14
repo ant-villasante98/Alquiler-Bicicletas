@@ -32,8 +32,8 @@ internal class CreateAlquilerCommandHandler
             Cliente: alquiler.Cliente,
             EstacionRetiro: alquiler.EstacionRetiro.Value,
             EstacionDevolucion: alquiler.EstacionDevolucion?.Value,
-            FechaHoraRetiro: alquiler.FechaHoraRetiro,
-            FechaHoraDevolucion: alquiler.FechaHoraDevolucion,
+            FechaHoraRetiro: alquiler.FechaHoraRetiro.Value,
+            FechaHoraDevolucion: alquiler.FechaHoraDevolucion?.Value,
             Monto: alquiler.Monto?.Value,
             TarifaId: alquiler.TarifaId.Value
         );

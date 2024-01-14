@@ -20,15 +20,15 @@ public class EstacionService : IEstacionService
         Estacion estacionOrigen = await GetById(origenId);
         Estacion estacionDestino = await GetById(destinoId);
         double distancia = CalculadorDistcia.CalcularDistancia(
-            latitudOrigen: estacionOrigen.Latitud,
-            longitudOrigen: estacionOrigen.Longitud,
-            latitudDestino: estacionDestino.Latitud,
-            longitudDestino: estacionDestino.Longitud
+            latitudOrigen: estacionOrigen.Latitud.Value,
+            longitudOrigen: estacionOrigen.Longitud.Value,
+            latitudDestino: estacionDestino.Latitud.Value,
+            longitudDestino: estacionDestino.Longitud.Value
         );
         return distancia;
     }
 
-    public async Task<Estacion> Create(string nombre, double latitud, double longitud)
+    public async Task<Estacion> Create(string nombre, EstacionLatitud latitud, EstacionLongitud longitud)
     {
         try
         {
@@ -65,11 +65,11 @@ public class EstacionService : IEstacionService
     {
         Estacion estacion =
             await _repository.FindbyId(id)
-            ?? throw new NullReferenceException($"No se pudo encontrar la Estcion con id: {id}");
+            ?? throw new NotFoundElementException($"No se pudo encontrar la Estcion con id: {id}");
         return estacion;
     }
 
-    public async Task Update(EstacionId id, string nombre, double latitud, double longitud)
+    public async Task Update(EstacionId id, string nombre, EstacionLatitud latitud, EstacionLongitud longitud)
     {
         Estacion estacion = await this.GetById(id);
         try

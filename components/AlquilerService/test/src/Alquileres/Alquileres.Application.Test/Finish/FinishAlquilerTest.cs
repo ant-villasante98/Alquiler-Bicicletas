@@ -26,7 +26,7 @@ public class FinishAlquilerTest
             cliente: cliente,
             estacionRetiro: estacionRetiro,
             estado: AlquilerEstado.Inicio,
-            fechaHoraRetiro: DateTime.UtcNow,
+            fechaHoraRetiro: new AlquilerFechaRetiro(DateTime.UtcNow),
             estacionDevolucion: null,
             fechaHoraDevolucion: null,
             monto: null,

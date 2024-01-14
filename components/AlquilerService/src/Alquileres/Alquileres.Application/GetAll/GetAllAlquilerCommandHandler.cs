@@ -25,8 +25,8 @@ internal class GetAllAlquilerCommandHandler : IRequestHandler<GetAllAlquilerComm
                 Cliente: a.Cliente,
                 EstacionRetiro: a.EstacionRetiro.Value,
                 EstacionDevolucion: a.EstacionDevolucion?.Value,
-                FechaHoraRetiro: a.FechaHoraRetiro,
-                FechaHoraDevolucion: a.FechaHoraDevolucion,
+                FechaHoraRetiro: a.FechaHoraRetiro.Value,
+                FechaHoraDevolucion: a.FechaHoraDevolucion?.Value,
                 Monto: a.Monto?.Value,
                 TarifaId: a.TarifaId.Value
             )

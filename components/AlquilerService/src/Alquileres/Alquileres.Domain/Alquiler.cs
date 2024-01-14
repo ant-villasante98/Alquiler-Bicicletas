@@ -9,8 +9,8 @@ public class Alquiler
     public string Cliente { get; private set; }
     public AlquilerEstacionId EstacionRetiro { get; private set; }
     public AlquilerEstacionId? EstacionDevolucion { get; private set; }
-    public DateTime FechaHoraRetiro { get; private set; }
-    public DateTime? FechaHoraDevolucion { get; private set; }
+    public AlquilerFechaRetiro FechaHoraRetiro { get; private set; }
+    public AlquilerFechaDevolucion? FechaHoraDevolucion { get; private set; }
     public AlquilerMonto? Monto { get; private set; }
     public TarifaId TarifaId { get; private set; }
 
@@ -18,7 +18,7 @@ public class Alquiler
 
     private Alquiler() { }
 
-    public Alquiler(AlquilerId id, AlquilerEstado estado, string cliente, AlquilerEstacionId estacionRetiro, AlquilerEstacionId? estacionDevolucion, DateTime fechaHoraRetiro, DateTime? fechaHoraDevolucion, AlquilerMonto? monto, TarifaId tarifaId, Tarifa tarifa)
+    public Alquiler(AlquilerId id, AlquilerEstado estado, string cliente, AlquilerEstacionId estacionRetiro, AlquilerEstacionId? estacionDevolucion, AlquilerFechaRetiro fechaHoraRetiro, AlquilerFechaDevolucion? fechaHoraDevolucion, AlquilerMonto? monto, TarifaId tarifaId, Tarifa tarifa)
     {
         Id = id;
         Estado = estado;
@@ -42,7 +42,7 @@ public class Alquiler
             Cliente = cliente,
             Estado = AlquilerEstado.Inicio,
             EstacionRetiro = estacionRetiro,
-            FechaHoraRetiro = dateStartAlquiler,
+            FechaHoraRetiro = new AlquilerFechaRetiro(dateStartAlquiler),
             TarifaId = new TarifaId(startTArifa == 0 ? 7 : startTArifa)
         };
     }
@@ -54,7 +54,7 @@ public class Alquiler
     public void Finish(AlquilerEstacionId estacionDevolucionId)
     {
         DateTime fechaHoraDevolucion = DateTime.UtcNow;
-        FechaHoraDevolucion = fechaHoraDevolucion;
+        FechaHoraDevolucion = new AlquilerFechaDevolucion(fechaHoraDevolucion);
         EstacionDevolucion = estacionDevolucionId;
         Estado = AlquilerEstado.Finalizado; ;
     }
@@ -62,19 +62,4 @@ public class Alquiler
     {
         Monto = montoTotal;
     }
-
-    //private double CalculateAmount(double distanciaKm)
-    //{
-    //    DateTime fechaDevolucion = FechaHoraDevolucion ?? throw new Exception("La fecha de devolucion de null");
-    //    TimeSpan tiempoAlquilado = fechaDevolucion - FechaHoraRetiro;
-    //    double montoHora = tiempoAlquilado.Hours * Tarifa.MontoHora.Value;
-    //    double montoKm = distanciaKm * Tarifa.MontoKm.Value;
-    //    double montoFraccion = 0;
-    //    if (tiempoAlquilado.Minutes >= 31)
-    //    {
-    //        montoFraccion += tiempoAlquilado.Minutes * Tarifa.MontoMinutoFraccion.Value;
-    //    }
-    //    double montoTotal = Tarifa.MontoFijoAlquiler.Value + montoHora + montoKm + montoFraccion;
-    //    return montoTotal;
-    //}
 }

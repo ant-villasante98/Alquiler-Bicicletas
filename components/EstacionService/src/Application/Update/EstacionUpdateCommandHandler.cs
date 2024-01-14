@@ -16,6 +16,11 @@ public class EstacionUpdateCommandHandler : IRequestHandler<EstacionUpdateComman
 
     public async Task Handle(EstacionUpdateCommand request, CancellationToken cancellationToken)
     {
-        await _service.Update(new EstacionId(request.Id), request.Nombre, request.Latitud, request.Longitud);
+        await _service.Update(
+            new EstacionId(request.Id),
+            request.Nombre,
+            new EstacionLatitud(request.Latitud),
+            new EstacionLongitud(request.Longitud)
+            );
     }
 }

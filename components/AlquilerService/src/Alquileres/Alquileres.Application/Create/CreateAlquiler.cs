@@ -26,7 +26,7 @@ public class CreateAlquiler : ICreateAlquiler
             cliente: cliente,
             estacionRetiro: estacionRetiro
         );
-        DateTime fechaRetiro = alquiler.FechaHoraRetiro;
+        DateTime fechaRetiro = alquiler.FechaHoraRetiro.Value;
         TarifaFecha tarifaFecha = new TarifaFecha(
                     dia: fechaRetiro.Day,
                     mes: fechaRetiro.Month,

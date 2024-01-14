@@ -33,16 +33,23 @@ public class AlquilerConfiguration : IEntityTypeConfiguration<Alquiler>
             .Property(v => v.Value)
             .HasColumnName("estacion_devolucion");
 
-        builder
-            .Property(a => a.FechaHoraRetiro)
+        builder.OwnsOne(a => a.FechaHoraRetiro)
+            .Property(v => v.Value)
             .HasColumnName("fecha_hora_retiro")
-            .HasConversion(v => (DateTime)v, v => v.ToUniversalTime());
+            .HasConversion(v => v, v => v.ToUniversalTime())
+            ;
 
-        builder
-            .Property(a => a.FechaHoraDevolucion)
+
+        // DateTime sin tipar
+        //builder.Property(a => a.FechaHoraDevolucion)
+        //.HasColumnName("fecha_hora_devolucion")
+        //.HasConversion(v => v, v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : null);
+        //.HasConversion(v => v, v => v.HasValue ? v.Value.ToUniversalTime() : null);
+
+        builder.OwnsOne(a => a.FechaHoraDevolucion)
+            .Property(v => v.Value)
             .HasColumnName("fecha_hora_devolucion")
-            //.HasConversion(v => v, v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : null);
-            .HasConversion(v => v, v => v.HasValue ? v.Value.ToUniversalTime() : null);
+            .HasConversion(v => v, v => v.ToUniversalTime()); ;
 
         builder.OwnsOne(a => a.Monto).Property(v => v.Value).HasColumnName("monto");
 

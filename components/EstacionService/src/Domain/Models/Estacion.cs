@@ -9,9 +9,9 @@ public partial class Estacion
 
     public DateTime FechaHoraCreacion { get; private set; }
 
-    public double Latitud { get; private set; }
+    public EstacionLatitud Latitud { get; private set; }
 
-    public double Longitud { get; private set; }
+    public EstacionLongitud Longitud { get; private set; }
 
     private Estacion() { }
 
@@ -19,8 +19,8 @@ public partial class Estacion
         EstacionId id,
         string nombre,
         DateTime fechaHoraCreacion,
-        double latitud,
-        double longitud
+        EstacionLatitud latitud,
+        EstacionLongitud longitud
     )
     {
         Id = id;
@@ -30,7 +30,7 @@ public partial class Estacion
         Longitud = longitud;
     }
 
-    public static Estacion Create(string nombre, double latitud, double longitud)
+    public static Estacion Create(string nombre, EstacionLatitud latitud, EstacionLongitud longitud)
     {
         return new Estacion()
         {
@@ -41,7 +41,7 @@ public partial class Estacion
         };
     }
 
-    public void Update(string nombre, double latitud, double longitud)
+    public void Update(string nombre, EstacionLatitud latitud, EstacionLongitud longitud)
     {
         Nombre = nombre;
         Latitud = latitud;

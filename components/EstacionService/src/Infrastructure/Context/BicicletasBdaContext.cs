@@ -23,7 +23,7 @@ public partial class BicicletasBdaContext : DbContext
             entity.ToTable("estaciones");
 
             entity.Property(e => e.Id).HasColumnName("id")
-            .HasConversion(v => v.Value, v=> new EstacionId(v))
+            .HasConversion(v => v.Value, v => new EstacionId(v))
             .ValueGeneratedOnAdd();
             entity
                 .Property(e => e.FechaHoraCreacion)
@@ -31,8 +31,12 @@ public partial class BicicletasBdaContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("fecha_hora_creacion")
                 .HasConversion(v => v.ToLocalTime(), v => v.ToUniversalTime());
-            entity.Property(e => e.Latitud).HasColumnName("latitud");
-            entity.Property(e => e.Longitud).HasColumnName("longitud");
+            entity.OwnsOne(e => e.Latitud)
+                .Property(v => v.Value)
+                .HasColumnName("latitud");
+            entity.OwnsOne(e => e.Longitud)
+                .Property(v => v.Value)
+                .HasColumnName("longitud");
             entity.Property(e => e.Nombre).HasMaxLength(100).HasColumnName("nombre");
         });
 

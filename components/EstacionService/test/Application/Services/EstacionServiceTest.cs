@@ -18,8 +18,8 @@ namespace ApplicationTest.Services
                 expectedId,
                 "Mi estacion",
                 DateTime.Now,
-                3.143,
-                6.345
+                new EstacionLatitud(3.143),
+                new EstacionLongitud(6.345)
             );
 
             repositoryMock.Setup(repo => repo.FindbyId(expectedId)).ReturnsAsync(expectedEstacion);
@@ -30,7 +30,7 @@ namespace ApplicationTest.Services
             var result = await estacionService.GetById(expectedId);
 
             // Assert
-            await Assert.ThrowsAsync<NullReferenceException>(() => estacionService.GetById(new EstacionId(1)));
+            await Assert.ThrowsAsync<NotFoundElementException>(() => estacionService.GetById(new EstacionId(1)));
 
             Assert.NotNull(result);
             Assert.Equal(result.Id, expectedEstacion.Id);
@@ -46,8 +46,8 @@ namespace ApplicationTest.Services
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
 
-            Estacion estacion1 = new Estacion(new EstacionId(1), "Puente", DateTime.Now, 1.324, 6.234);
-            Estacion estacion2 = new Estacion(new EstacionId(1), "Puente", DateTime.Now, 1.324, 6.234);
+            Estacion estacion1 = new Estacion(new EstacionId(1), "Puente", DateTime.Now, new EstacionLatitud(1.324), new EstacionLongitud(6.234));
+            Estacion estacion2 = new Estacion(new EstacionId(1), "Puente", DateTime.Now, new EstacionLatitud(1.324), new EstacionLongitud(6.234));
 
             List<Estacion> estacionList = new List<Estacion>() { estacion1, estacion2 };
 
@@ -73,22 +73,22 @@ namespace ApplicationTest.Services
                 estacionId,
                 "Puente",
                 DateTime.Now,
-                1.324,
-                6.234
+                new EstacionLatitud(1.324),
+                new EstacionLongitud(6.234)
             );
             Estacion expectedEstacion = new Estacion(
                 estacionId,
                 "Mar",
                 originalEstacion.FechaHoraCreacion,
-                1.543,
-                6.0877
+                new EstacionLatitud(1.543),
+                new EstacionLongitud(6.0877)
             );
             Estacion returnedEstacion = new Estacion(
                 estacionId,
                 "Puente",
                 DateTime.Now,
-                1.324,
-                6.234
+                new EstacionLatitud(1.324),
+                new EstacionLongitud(6.234)
             );
             repositoryMock.Setup(repo => repo.FindbyId(estacionId)).ReturnsAsync(originalEstacion);
             repositoryMock
@@ -113,7 +113,7 @@ namespace ApplicationTest.Services
 
             repositoryMock.Verify(repo => repo.FindbyId(estacionId), Times.Once);
             repositoryMock.Verify(repo => repo.Update(It.IsAny<Estacion>()), Times.Once);
-            await Assert.ThrowsAsync<NullReferenceException>(
+            await Assert.ThrowsAsync<NotFoundElementException>(
                 () => estacionService.Update(new EstacionId(9), expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud)
             );
             Assert.Equal(expectedEstacion.Id, returnedEstacion.Id);
@@ -133,22 +133,22 @@ namespace ApplicationTest.Services
                 estacionId,
                 "Puente",
                 DateTime.Now,
-                1.324,
-                6.234
+                new EstacionLatitud(1.324),
+                new EstacionLongitud(6.234)
             );
             Estacion expectedEstacion = new Estacion(
                 estacionId,
                 "Mar",
                 originalEstacion.FechaHoraCreacion,
-                1.543,
-                6.0877
+                new EstacionLatitud(1.543),
+                new EstacionLongitud(6.0877)
             );
             Estacion expectedEstacionFall = new Estacion(
                 estacionId,
                 "",
                 originalEstacion.FechaHoraCreacion,
-                1.543,
-                6.0877
+                new EstacionLatitud(1.543),
+                new EstacionLongitud(6.0877)
             );
             repositoryMock.Setup(repo => repo.FindbyId(estacionId)).ReturnsAsync(originalEstacion);
             repositoryMock
@@ -164,7 +164,7 @@ namespace ApplicationTest.Services
             // await estacionService.Update(estacionId, expectedEstacionFall);
 
             // Assert
-            await Assert.ThrowsAsync<NullReferenceException>(
+            await Assert.ThrowsAsync<NotFoundElementException>(
                 () => estacionService.Update(new EstacionId(9), expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud)
             );
             await Assert.ThrowsAsync<CouldNotUpdateDBException>(
@@ -183,8 +183,8 @@ namespace ApplicationTest.Services
                 estacionId,
                 "Puente",
                 DateTime.Now,
-                1.324,
-                6.234
+                new EstacionLatitud(1.324),
+                new EstacionLongitud(6.234)
             );
             repositoryMock.Setup(repo => repo.FindbyId(estacionId)).ReturnsAsync(originalEstacion);
 
@@ -198,7 +198,7 @@ namespace ApplicationTest.Services
             // Assert
             repositoryMock.Verify(repo => repo.Delete(originalEstacion), Times.Once);
             repositoryMock.Verify(repo => repo.FindbyId(estacionId), Times.Once);
-            await Assert.ThrowsAsync<NullReferenceException>(() => estacionService.Delete(new EstacionId(1)));
+            await Assert.ThrowsAsync<NotFoundElementException>(() => estacionService.Delete(new EstacionId(1)));
         }
     }
 }

@@ -27,8 +27,8 @@ internal sealed class EstacionesGetAllQueryHandler
                     new EstacionDto(
                         id: e.Id.Value,
                         nombre: e.Nombre,
-                        latitud: e.Latitud,
-                        longitud: e.Longitud,
+                        latitud: e.Latitud.Value,
+                        longitud: e.Longitud.Value,
                         fechaHoraCreacion: e.FechaHoraCreacion.ToUniversalTime()
                     )
             )
