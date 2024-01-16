@@ -1,4 +1,5 @@
 using Application.CalcularDistancia;
+using Application.Common;
 using Application.Create;
 using Application.Delete;
 using Application.GetAll;
@@ -8,7 +9,6 @@ using Domain.CustomExeptions;
 using MediatR;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Response;
 
 namespace WebApi.Controllers;
 

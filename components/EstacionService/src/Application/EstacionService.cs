@@ -9,10 +9,12 @@ namespace Application.Services;
 public class EstacionService : IEstacionService
 {
     private readonly IEstacionRepository _repository;
+    private readonly IDistributedCacheService _cache;
 
-    public EstacionService(IEstacionRepository repository)
+    public EstacionService(IEstacionRepository repository, IDistributedCacheService cache)
     {
         _repository = repository;
+        _cache = cache;
     }
 
     public async Task<double> CalcularDistancia(EstacionId origenId, EstacionId destinoId)
@@ -57,15 +59,28 @@ public class EstacionService : IEstacionService
 
     public async Task<List<Estacion>> GetAll()
     {
-        List<Estacion> estaciones = await _repository.FindAll();
+
+        string cacheKey = $"estacionList";
+
+        List<Estacion> estaciones = await _cache.GetAsync<List<Estacion>>(cacheKey);
+        if (estaciones == null)
+        {
+            estaciones = await _repository.FindAll();
+            await _cache.AddAsync(cacheKey, estaciones);
+
+        }
         return estaciones;
     }
 
     public async Task<Estacion> GetById(EstacionId id)
     {
-        Estacion estacion =
-            await _repository.FindbyId(id)
-            ?? throw new NotFoundElementException($"No se pudo encontrar la Estcion con id: {id}");
+        string cacheKey = $"estacion.{id.Value.ToString()}";
+        Estacion estacion = await _cache.GetAsync<Estacion>(cacheKey);
+        if (estacion == null)
+        {
+            estacion = await _repository.FindbyId(id) ?? throw new NotFoundElementException($"No se pudo encontrar la Estcion con id: {id}");
+            await _cache.AddAsync(cacheKey, estacion);
+        }
         return estacion;
     }
 

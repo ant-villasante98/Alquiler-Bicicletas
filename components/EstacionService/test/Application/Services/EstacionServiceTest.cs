@@ -2,6 +2,7 @@ using Application.Services;
 using Domain.CustomExeptions;
 using Domain.Models;
 using Domain.Repositories;
+using Domain.Services;
 using Moq;
 
 namespace ApplicationTest.Services
@@ -13,6 +14,11 @@ namespace ApplicationTest.Services
         {
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
+            var cacheService = new Mock<IDistributedCacheService>();
+
+            cacheService.Setup(cs => cs.GetAsync<Estacion>(It.IsAny<string>()));
+            cacheService.Setup(cs => cs.AddAsync(It.IsAny<string>(), It.IsAny<Estacion>()));
+
             EstacionId expectedId = new EstacionId(3);
             var expectedEstacion = new Estacion(
                 expectedId,
@@ -22,9 +28,11 @@ namespace ApplicationTest.Services
                 new EstacionLongitud(6.345)
             );
 
+
+
             repositoryMock.Setup(repo => repo.FindbyId(expectedId)).ReturnsAsync(expectedEstacion);
 
-            var estacionService = new EstacionService(repositoryMock.Object);
+            var estacionService = new EstacionService(repositoryMock.Object, cacheService.Object);
 
             // Act
             var result = await estacionService.GetById(expectedId);
@@ -45,14 +53,17 @@ namespace ApplicationTest.Services
         {
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
+            var cacheService = new Mock<IDistributedCacheService>();
 
+            cacheService.Setup(cs => cs.GetAsync<List<Estacion>>(It.IsAny<string>()));
+            cacheService.Setup(cs => cs.AddAsync(It.IsAny<string>(), It.IsAny<List<Estacion>>()));
             Estacion estacion1 = new Estacion(new EstacionId(1), "Puente", DateTime.Now, new EstacionLatitud(1.324), new EstacionLongitud(6.234));
             Estacion estacion2 = new Estacion(new EstacionId(1), "Puente", DateTime.Now, new EstacionLatitud(1.324), new EstacionLongitud(6.234));
 
             List<Estacion> estacionList = new List<Estacion>() { estacion1, estacion2 };
 
             repositoryMock.Setup(repo => repo.FindAll()).ReturnsAsync(estacionList);
-            var estacionService = new EstacionService(repositoryMock.Object);
+            var estacionService = new EstacionService(repositoryMock.Object, cacheService.Object);
 
             // Act
             var result = await estacionService.GetAll();
@@ -68,6 +79,12 @@ namespace ApplicationTest.Services
         {
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
+
+            var cacheService = new Mock<IDistributedCacheService>();
+
+            cacheService.Setup(cs => cs.GetAsync<Estacion>(It.IsAny<string>()));
+            cacheService.Setup(cs => cs.AddAsync(It.IsAny<string>(), It.IsAny<Estacion>()));
+
             EstacionId estacionId = new EstacionId(5);
             Estacion originalEstacion = new Estacion(
                 estacionId,
@@ -104,7 +121,7 @@ namespace ApplicationTest.Services
             //   .Setup(repo => repo.Update(It.IsAny<Estacion>()))
             // .ThrowsAsync(new Exception());
 
-            var estacionService = new EstacionService(repositoryMock.Object);
+            var estacionService = new EstacionService(repositoryMock.Object, cacheService.Object);
 
             // Act
             await estacionService.Update(estacionId, expectedEstacion.Nombre, expectedEstacion.Latitud, expectedEstacion.Longitud);
@@ -128,6 +145,11 @@ namespace ApplicationTest.Services
         {
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
+            var cacheService = new Mock<IDistributedCacheService>();
+
+            cacheService.Setup(cs => cs.GetAsync<Estacion>(It.IsAny<string>()));
+            cacheService.Setup(cs => cs.AddAsync(It.IsAny<string>(), It.IsAny<Estacion>()));
+
             EstacionId estacionId = new EstacionId(5);
             Estacion originalEstacion = new Estacion(
                 estacionId,
@@ -158,7 +180,7 @@ namespace ApplicationTest.Services
             //   .Setup(repo => repo.Update(It.IsAny<Estacion>()))
             // .ThrowsAsync(new Exception());
 
-            var estacionService = new EstacionService(repositoryMock.Object);
+            var estacionService = new EstacionService(repositoryMock.Object, cacheService.Object);
 
             // Act
             // await estacionService.Update(estacionId, expectedEstacionFall);
@@ -177,6 +199,10 @@ namespace ApplicationTest.Services
         {
             // Arrange
             var repositoryMock = new Mock<IEstacionRepository>();
+            var cacheService = new Mock<IDistributedCacheService>();
+
+            cacheService.Setup(cs => cs.GetAsync<Estacion>(It.IsAny<string>()));
+            cacheService.Setup(cs => cs.AddAsync(It.IsAny<string>(), It.IsAny<Estacion>()));
 
             EstacionId estacionId = new EstacionId(8);
             Estacion originalEstacion = new Estacion(
@@ -190,7 +216,7 @@ namespace ApplicationTest.Services
 
             repositoryMock.Setup(repo => repo.Delete(originalEstacion));
 
-            var estacionService = new EstacionService(repositoryMock.Object);
+            var estacionService = new EstacionService(repositoryMock.Object, cacheService.Object);
 
             // Act
             await estacionService.Delete(estacionId);

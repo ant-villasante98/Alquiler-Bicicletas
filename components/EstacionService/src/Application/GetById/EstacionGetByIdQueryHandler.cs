@@ -18,12 +18,14 @@ internal class EstacionGetByIdQueryHandler : IRequestHandler<EstacionGetByIdQuer
     public async Task<EstacionDto> Handle(EstacionGetByIdQuery request, CancellationToken cancellationToken)
     {
         Estacion estacion = await _service.GetById(new EstacionId(request.Id));
-        return new EstacionDto(
+        EstacionDto estacionDto = new EstacionDto(
             id: estacion.Id.Value,
             nombre: estacion.Nombre,
             latitud: estacion.Latitud.Value,
             longitud: estacion.Longitud.Value,
             fechaHoraCreacion: estacion.FechaHoraCreacion
         );
+
+        return estacionDto;
     }
 }

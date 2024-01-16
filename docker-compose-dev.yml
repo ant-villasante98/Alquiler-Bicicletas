@@ -42,6 +42,12 @@ services:
       - POSTGRES_PASSWORD=password
     networks:
       - red-dev
+  redis-dev:
+    image: redis 
+    ports:
+      - 6379:6379
+    networks:
+      - red-dev 
 
     
 networks:

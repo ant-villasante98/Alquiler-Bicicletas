@@ -21,9 +21,8 @@ internal sealed class EstacionesGetAllQueryHandler
     )
     {
         List<Estacion> estaciones = await _service.GetAll();
-        List<EstacionDto> estacionDtos = estaciones
-            .Select(
-                e =>
+        List<EstacionDto> estacionesDto = estaciones
+            .Select(e =>
                     new EstacionDto(
                         id: e.Id.Value,
                         nombre: e.Nombre,
@@ -33,6 +32,7 @@ internal sealed class EstacionesGetAllQueryHandler
                     )
             )
             .ToList();
-        return estacionDtos;
+
+        return estacionesDto;
     }
 }
