@@ -1,5 +1,5 @@
 using AutoMapper;
-using Domain.Models;
+using Estaciones.Domain.Models;
 
 namespace WebApi.Utilities;
 

@@ -1,11 +1,11 @@
-using Application.CalcularDistancia;
-using Application.Common;
-using Application.Create;
-using Application.Delete;
-using Application.GetAll;
-using Application.GetById;
-using Application.Update;
-using Domain.CustomExeptions;
+using Estaciones.Application.CalcularDistancia;
+using Estaciones.Application.Common;
+using Estaciones.Application.Create;
+using Estaciones.Application.Delete;
+using Estaciones.Application.GetAll;
+using Estaciones.Application.GetById;
+using Estaciones.Application.Update;
+using Estaciones.Domain.CustomExeptions;
 using MediatR;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +28,6 @@ public class EstacionesController : ControllerBase
     {
         try
         {
-            //List<EstacionDto> estacionDtos = await _application.GetAll();
             var estacionDtos = await _mediator.Send(new EstacionesGetAllQuery());
             return Ok(estacionDtos);
         }

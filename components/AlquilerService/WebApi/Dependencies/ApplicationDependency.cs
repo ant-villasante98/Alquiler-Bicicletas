@@ -9,6 +9,8 @@ using Alquileres.Domain.Services;
 using Alquileres.Infrastructure.Repository;
 using Alquileres.Infrastructure.Repository.Services;
 using Microsoft.EntityFrameworkCore;
+using Shared.Domain.Services;
+using Shared.Infrastructure.Services;
 using Tarifas.Application;
 using Tarifas.Application.Common;
 using Tarifas.Domain.Repositories;
@@ -35,6 +37,7 @@ public static class ApplicationDependency
         services.AddScoped<IFinishAlquiler, FinishAlquiler>();
         services.AddScoped<IGetAllAlquiler, GetAllAlquiler>();
         services.AddScoped<IAlquilerService, AlquilerService>();
+        services.AddScoped<IDistributedCacheService, DistriutedCacheService>();
 
         services.AddMediatR(config =>
         {
@@ -43,6 +46,11 @@ public static class ApplicationDependency
         }
         );
 
+        // Caching
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = "redis-dev:6379";
+        });
 
         return services;
     }

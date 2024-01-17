@@ -2,6 +2,7 @@
 using Alquileres.Domain;
 using Alquileres.Domain.Estacion;
 using Alquileres.Domain.Services;
+using Shared.Domain.CustomExceptions;
 using Tarifas.Domain;
 using Tarifas.Domain.Services;
 
@@ -25,12 +26,12 @@ public class FinishAlquiler : IFinishAlquiler
         if (await _repository.FindByIdAsync(id) is not Alquiler alquiler)
         {
             // TODO: cambiar exception
-            throw new Exception($"Not found id :{id.Value}");
+            throw new NotFoundElementException($"No se encontro el Alquiler con id:{id.Value}");
         }
         EstacionDistancia distancia = await _estacionService.CalculateDistance(alquiler.EstacionRetiro, estacionId);
 
         alquiler.Finish(estacionId);
-        DateTime fechaDevolucion = alquiler.FechaHoraDevolucion?.Value ?? throw new Exception("La fecha de devolucion no puede ser null.");
+        DateTime fechaDevolucion = alquiler.FechaHoraDevolucion?.Value ?? throw new NullReferenceException("La fecha de devolucion no puede ser null.");
         AlquilerMonto montoTotal = _alquilerService.CalcularMontoTotal(fechaDevolucion - alquiler.FechaHoraRetiro.Value, alquiler.Tarifa, distancia);
         alquiler.SetAlquilerMonto(montoTotal);
 

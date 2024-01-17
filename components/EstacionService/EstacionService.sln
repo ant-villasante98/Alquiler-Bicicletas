@@ -7,15 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9EAF0919-7AF9-4EF5-B1FD-7E010AFB36AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estaciones.Application", "src\Application\Estaciones.Application.csproj", "{974B2FDD-AEAD-4CBE-9360-22EA81F7F47D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estaciones.Application", "src\Estaciones.Application\Estaciones.Application.csproj", "{974B2FDD-AEAD-4CBE-9360-22EA81F7F47D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estaciones.Domain", "src\Domain\Estaciones.Domain.csproj", "{67257D72-6AE2-4B2F-A208-7A1E3C6397DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estaciones.Domain", "src\Estaciones.Domain\Estaciones.Domain.csproj", "{67257D72-6AE2-4B2F-A208-7A1E3C6397DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estaciones.Infrastructure", "src\Infrastructure\Estaciones.Infrastructure.csproj", "{1C594905-5E33-49A3-9379-FD6E3EC02A70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estaciones.Infrastructure", "src\Estaciones.Infrastructure\Estaciones.Infrastructure.csproj", "{1C594905-5E33-49A3-9379-FD6E3EC02A70}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D7FF73B2-27F6-4F9F-ABBB-F7A75BD75C06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estaciones.Application.test", "test\Application\Estaciones.Application.test.csproj", "{9A6E3A44-F7BD-4D88-BD96-EC93EDA3A75D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estaciones.Application.test", "test\Estaciones.Application\Estaciones.Application.test.csproj", "{9A6E3A44-F7BD-4D88-BD96-EC93EDA3A75D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

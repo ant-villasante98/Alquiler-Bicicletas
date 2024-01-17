@@ -2,6 +2,7 @@ using System.Net.Http.Json;
 using Alquileres.Domain;
 using Alquileres.Domain.Estacion;
 using Alquileres.Domain.Services;
+using Shared.Domain.CustomExceptions;
 
 namespace Alquileres.Infrastructure.Repository.Services;
 
@@ -21,9 +22,9 @@ public class EstacionService : IEstacionService
         AlquilerEstacionId estacionDevolucion
     )
     {
-        //return new EstacionDistancia(25.3);
         try
         {
+            // TODO: manejar respuesta NotFound de la peticion
             HttpClient httpClient = _httpClientFactory.CreateClient();
             var response = await httpClient.GetFromJsonAsync<EstacionDistancia>(
                 $"{Url}/calcular-distancia?origen={estacionRetiro.Value}&destino={estacionDevolucion.Value}"
@@ -32,11 +33,16 @@ public class EstacionService : IEstacionService
             {
                 throw new NullReferenceException();
             }
+
             return response;
         }
-        catch (System.Exception)
+        catch (NullReferenceException)
         {
-            throw new Exception("NO se encontro la distacia");
+            throw new NotFoundElementException("No se encontro la distacia");
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message, ex);
         }
     }
 
@@ -53,11 +59,10 @@ public class EstacionService : IEstacionService
         if (!response.IsSuccessStatusCode)
         {
             // TODO: Crear nueva exection
-            throw new Exception(
+            throw new NotFoundElementException(
                 $"no se pudo encontrar la estacion con id:{id.Value}, {response.Content}"
             );
         }
-        Console.WriteLine("Se encontro la estacion");
     }
 }
 

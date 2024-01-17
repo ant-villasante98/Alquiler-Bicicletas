@@ -1,4 +1,5 @@
 using WebApi.Dependencies;
+using WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<MiddlewareException>();
 
 app.UseAuthorization();
 

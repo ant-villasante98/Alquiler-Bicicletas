@@ -1,6 +1,6 @@
 
 using System.Net;
-using Domain.CustomExeptions;
+using Estaciones.Domain.CustomExeptions;
 
 namespace WebApi.Middleware;
 

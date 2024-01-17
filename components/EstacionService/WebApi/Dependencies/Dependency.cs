@@ -1,12 +1,12 @@
 using System.Reflection;
-using Application;
-using Application.Common;
-using Application.Services;
-using Domain.Repositories;
-using Domain.Services;
-using Infrastructure.Context;
-using Infrastructure.Repository;
-using Infrastructure.Services;
+using Estaciones.Application;
+using Estaciones.Application.Common;
+using Estaciones.Application.Services;
+using Estaciones.Domain.Repositories;
+using Estaciones.Domain.Services;
+using Estaciones.Infrastructure.Context;
+using Estaciones.Infrastructure.Repository;
+using Estaciones.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -32,10 +32,10 @@ public static class Dependency
 
         // Service Injections
         services.AddScoped<IEstacionService, EstacionService>();
-        services.AddTransient(typeof(IDistributedCacheService), typeof(EstacionDistriutedCache));
+        services.AddTransient(typeof(IDistributedCacheService), typeof(DistriutedCacheService));
 
         // Applicion Injections
-        services.AddAutoMapper(typeof(AutoMapperProfile));
+        //services.AddAutoMapper(typeof(AutoMapperProfile));
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssemblyContaining<ApplicationAssemblyReference>();
