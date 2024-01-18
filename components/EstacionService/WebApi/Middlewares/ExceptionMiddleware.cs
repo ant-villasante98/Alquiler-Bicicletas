@@ -2,7 +2,7 @@
 using System.Net;
 using Estaciones.Domain.CustomExeptions;
 
-namespace WebApi.Middleware;
+namespace WebApi.Middlewares;
 
 public class ExceptionMiddleware
 {

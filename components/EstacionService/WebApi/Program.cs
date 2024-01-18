@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using WebApi.Dependencies;
 using HealthChecks.UI.Client;
-using WebApi.Middleware;
+using WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
